@@ -1,0 +1,53 @@
+.example-full-width {
+  width: 20%;
+  position: absolute;
+  right: 1.5rem;
+  top: 1%;
+}
+
+.container {
+  display: flex;
+  overflow-x: hidden;
+  flex-wrap: wrap;
+  margin: 5rem 1rem;
+  .post-card {
+    width: 8%;
+    background-color: #eeeeee;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2rem;
+    position: relative;
+    cursor: pointer !important;
+  }
+}
+
+// mobile
+@media only screen and (min-width: 320px) and (max-width: 600px) {
+  .example-full-width {
+    width: 40%;
+  }
+  .container {
+    margin-top: 20%;
+    .post-card {
+      width: 100% !important;
+    }
+  }
+}
+
+// tablet
+@media only screen and (min-width: 600px) and (max-width: 1280px) {
+  .container {
+    margin-top: 10%;
+    .post-card {
+      width: 25% !important;
+    }
+  }
+}
+
+@media only screen and (min-width: 1280px) and (max-width: 1600px){
+  .container {
+    .post-card {
+      width: 7% !important;
+    }
+  }
+}

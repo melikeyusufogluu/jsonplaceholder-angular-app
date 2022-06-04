@@ -1,0 +1,26 @@
+<mat-form-field class="example-full-width" appearance="fill">
+  <mat-label>Search</mat-label>
+  <input
+    matInput
+    placeholder="Enter Post"
+    #txtVal
+    (ngModelChange)="applyFilter(txtVal.value)"
+    [(ngModel)]="searchValue"
+  />
+  <button mat-icon-button matSuffix aria-label="Clear" (click)="clearSearch()">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>
+
+<div class="container">
+  <ng-container *ngFor="let post of filteredArray || data">
+    <mat-card class="post-card" (click)="changeId(post)">
+      <mat-card-title>{{ post.changeableId || post.id }}</mat-card-title>
+      <mat-card-subtitle>{{ post.title }}</mat-card-subtitle>
+
+      <mat-card-content>
+        <p>{{ post.body }}</p>
+      </mat-card-content>
+    </mat-card>
+  </ng-container>
+</div>
