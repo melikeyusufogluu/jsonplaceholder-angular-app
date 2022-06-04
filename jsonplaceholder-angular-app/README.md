@@ -1,3 +1,10 @@
+#####
+
+# You can switch your branch with shared-state branch to see the NGXS improvement. In this branch you can see the same logic with NGXS state management...
+
+#####
+
+
 # JsonplaceholderAngularApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.6.
