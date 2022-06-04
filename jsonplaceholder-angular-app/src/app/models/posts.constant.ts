@@ -5,3 +5,7 @@ export interface IPostsResponse {
   body: string;
   changeableId?: number;
 }
+
+export interface IAll {
+  allPosts: IPostsResponse[];
+}

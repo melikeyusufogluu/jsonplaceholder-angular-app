@@ -14,6 +14,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { NgxsModule } from '@ngxs/store';
+import { environment } from 'src/environments/environment.prod';
+import { PostState } from './state/posts.state';
+import { NgxsReduxDevtoolsPluginModule } from "@ngxs/devtools-plugin";
 
 @NgModule({
   declarations: [
@@ -21,6 +25,9 @@ import { FormsModule } from '@angular/forms';
     PostsComponent
   ],
   imports: [
+    NgxsModule.forRoot([PostState],{
+      developmentMode: !environment.production
+    }),
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -33,8 +40,10 @@ import { FormsModule } from '@angular/forms';
     MatInputModule,
     MatDialogModule,
     MatIconModule,
+    NgxsReduxDevtoolsPluginModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

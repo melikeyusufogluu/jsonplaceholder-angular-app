@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { IPostsResponse } from 'src/app/models/posts.constant';
+import { IAll, IPostsResponse } from 'src/app/models/posts.constant';
 import { PostsServiceService } from 'src/app/services/posts-service.service';
+import { Select, Store } from '@ngxs/store';
+import { AllPosts } from 'src/app/action/posts.actions';
+import { Observable, take } from 'rxjs';
+import { PostState } from 'src/app/state/posts.state';
 
 @Component({
   selector: 'app-posts',
@@ -8,22 +12,21 @@ import { PostsServiceService } from 'src/app/services/posts-service.service';
   styleUrls: ['./posts.component.scss'],
 })
 export class PostsComponent implements OnInit {
+  @Select(PostState.getAllPosts) allposts$!: Observable<IPostsResponse[]>;
   public data!: IPostsResponse[];
   public filteredArray!: IPostsResponse[];
   public searchValue = '';
   public clear = false;
   public changeableId!: number;
 
-  constructor(private postService: PostsServiceService) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.getPosts();
   }
 
   getPosts() {
-    this.postService.getPosts().subscribe(resp => {
-      this.data = resp;
-    });
+    this.store.dispatch(new AllPosts());
   }
 
   changeId(post: IPostsResponse) {
@@ -40,14 +43,14 @@ export class PostsComponent implements OnInit {
     if(event === '') {
       this.filteredArray = [];
     }
-    this.filteredArray = this.data.filter(prod => prod.title.toLocaleLowerCase().startsWith(event));
+    this.allposts$.pipe().subscribe(post => this.filteredArray =  post.filter(p => p.title.toLocaleLowerCase().startsWith(event)))
   }
   clearSearch() {
     this.clear = true;
     this.searchValue = '';
     this.getPosts();
     if(this.clear) {
-      this.filteredArray = this.data;
+      this.allposts$.pipe().subscribe(post => this.filteredArray =  post);
     }
   }
 }

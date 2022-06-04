@@ -13,7 +13,7 @@
 </mat-form-field>
 
 <div class="container">
-  <ng-container *ngFor="let post of filteredArray || data">
+  <ng-container *ngFor="let post of filteredArray || (allposts$ | async)">
     <mat-card class="post-card" (click)="changeId(post)">
       <mat-card-title>{{ post.changeableId || post.id }}</mat-card-title>
       <mat-card-subtitle>{{ post.title }}</mat-card-subtitle>
