@@ -16,7 +16,6 @@ export class PostsComponent implements OnInit {
   public data!: IPostsResponse[];
   public filteredArray!: IPostsResponse[];
   public searchValue = '';
-  public clear = false;
   public changeableId!: number;
 
   constructor(private store: Store) {}
@@ -30,9 +29,9 @@ export class PostsComponent implements OnInit {
   }
 
   changeId(post: IPostsResponse) {
-    if(!post.changeableId) {
+    if (!post.changeableId) {
       post.changeableId = post.userId;
-    } else if(post.changeableId && post.changeableId === post.userId) {
+    } else if (post.changeableId && post.changeableId === post.userId) {
       post.changeableId = post.id;
     } else {
       post.changeableId = post.changeableId = post.userId;
@@ -40,17 +39,23 @@ export class PostsComponent implements OnInit {
   }
 
   applyFilter(event: string) {
-    if(event === '') {
+    if (event === '') {
       this.filteredArray = [];
     }
-    this.allposts$.pipe().subscribe(post => this.filteredArray =  post.filter(p => p.title.toLocaleLowerCase().startsWith(event)))
+    this.allposts$
+      .pipe(take(1))
+      .subscribe(
+        (post) =>
+          (this.filteredArray = post.filter((p) =>
+            p.title.toLocaleLowerCase().startsWith(event)
+          ))
+      );
   }
   clearSearch() {
-    this.clear = true;
     this.searchValue = '';
     this.getPosts();
-    if(this.clear) {
-      this.allposts$.pipe().subscribe(post => this.filteredArray =  post);
-    }
+    this.allposts$
+      .pipe(take(1))
+      .subscribe((post) => (this.filteredArray = post));
   }
 }
