@@ -10,7 +10,7 @@ export class PostsServiceService {
 
   constructor(private http: HttpClient) { }
 
-  getPosts(): Observable<any> {
-    return this.http.get('https://jsonplaceholder.typicode.com/posts');
+  getPosts(): Observable<IPostsResponse[]> {
+    return this.http.get<IPostsResponse[]>('https://jsonplaceholder.typicode.com/posts');
   }
 }
