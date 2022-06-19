@@ -1,6 +1,7 @@
 #####
 
-# You can switch your branch with shared-state branch to see the NGXS improvement. In this branch you can see the same logic with NGXS state management...
+You can switch your branch with shared-state branch to see the NGXS improvement with Redux. 
+In this branch you can see the same logic with NGXS state management...
 
 #####
 
